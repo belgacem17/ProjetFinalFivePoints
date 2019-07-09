@@ -24,9 +24,6 @@ public class Finance implements Serializable{
 	private List<Achat> listAchat = new ArrayList<Achat>() ;
 	
 	@OneToMany(mappedBy="finance",fetch=FetchType.LAZY)
-	private List<Achat> listCharge = new ArrayList<Achat>() ;
-	
-	@OneToMany(mappedBy="finance",fetch=FetchType.LAZY)
 	private List<Paiments> listPaiments = new ArrayList<Paiments>() ;
 	
 	public int getId() {
@@ -53,12 +50,7 @@ public class Finance implements Serializable{
 	public void setListAchat(List<Achat> listAchat) {
 		this.listAchat = listAchat;
 	}
-	public List<Achat> getListCharge() {
-		return listCharge;
-	}
-	public void setListCharge(List<Achat> listCharge) {
-		this.listCharge = listCharge;
-	}
+	
 	public List<Paiments> getListPaiments() {
 		return listPaiments;
 	}

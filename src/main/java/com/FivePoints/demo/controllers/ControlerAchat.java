@@ -24,11 +24,11 @@ public class ControlerAchat {
 	@Autowired
 	private ImplRepositryAchat implRepositryAchat;
 	
-//	@Autowired
-//	private ImplRepositryAgences implRepositryAgences;
-//	
-//	@Autowired
-//	private ImplRepositryFinance implRepositryFinance;
+	@Autowired
+	private ImplRepositryAgences implRepositryAgences;
+	
+	@Autowired
+	private ImplRepositryFinance implRepositryFinance;
 
 	@RequestMapping(value="/getAll",method=RequestMethod.GET)
 	public List<Achat> FindAll()
@@ -37,14 +37,13 @@ public class ControlerAchat {
 		return  implRepositryAchat.findAll();
 	}
 	
-	@RequestMapping(value="/add",method=RequestMethod.POST)
+	@RequestMapping(value="/add/{lieu}",method=RequestMethod.POST)
 	public void saveAchat(@RequestBody Achat achat ,@PathVariable("lieu") String lieu)
 	{
-//		Agences agences = new Agences();
-//		agences= implRepositryAgences.findByLieu(lieu);
-//		Finance finance = new Finance();
-//		finance= implRepositryFinance.findByAgences(agences);
-//		implRepositryAchat.save(achat);
+		Agences agences = new Agences();
+		agences= implRepositryAgences.findByLieu(lieu);
+		Finance finance = new Finance();
+		finance= implRepositryFinance.findByAgences(agences.getId());
 	}
 	
 	@RequestMapping(value="/getId/{idA}",method=RequestMethod.GET)

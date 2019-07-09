@@ -11,5 +11,5 @@ import com.FivePoints.demo.entities.Finance;
 public interface RepositryFinance extends JpaRepository<Finance, Integer> {
 	/*-------------CRUD SPECIFIQUE-------------*/
 	@Query("select f from Finance f where f.agences.id= ?1")
-	public Finance findByAgences(int  id);
+	public Finance findByAgences(int id);
 }

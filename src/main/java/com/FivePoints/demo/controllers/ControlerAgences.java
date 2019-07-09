@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.FivePoints.demo.ImplRepositry.ImplRepositryAgences;
 import com.FivePoints.demo.entities.Agences;
-import com.FivePoints.demo.entities.Finance;
 
 
 @RestController
@@ -81,8 +80,6 @@ public class ControlerAgences {
 	{
 		Agences agences = new Agences();
 		agences= implRepositryAgences.findByLieu(lieu);
-		//Finance finance = new Finance();
-		System.out.println(agences.getId());
 		return  agences; 
 	}
 }

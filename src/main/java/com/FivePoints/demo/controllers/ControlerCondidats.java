@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.FivePoints.demo.ImplRepositry.ImplRepositryCondidats;
+import com.FivePoints.demo.ImplRepositry.ImplRepositryFormation;
 import com.FivePoints.demo.entities.Condidats;
+import com.FivePoints.demo.entities.Formation;
 
 
 @RestController
@@ -18,7 +20,10 @@ import com.FivePoints.demo.entities.Condidats;
 public class ControlerCondidats {
 	
 	@Autowired
-	private ImplRepositryCondidats implRepositryCondidats;
+	 ImplRepositryCondidats implRepositryCondidats;
+	
+	@Autowired
+	 ImplRepositryFormation implRepositryFormation;
 	
 	@RequestMapping(value="/getAll",method=RequestMethod.GET)
 	public List<Condidats> FindAll()
@@ -27,10 +32,13 @@ public class ControlerCondidats {
 		return  implRepositryCondidats.findAll();
 	}
 	
-	@RequestMapping(value="/add",method=RequestMethod.POST)
-	public void saveUser(@RequestBody Condidats user)
+	@RequestMapping(value="/add/{idF}",method=RequestMethod.POST)
+	public void saveCondidats(@RequestBody Condidats condidats,@PathVariable("idF") int id)
 	{
-		implRepositryCondidats.save(user);
+		Formation formation = new Formation();
+		formation= implRepositryFormation.getOne(id);
+
+		implRepositryCondidats.save(condidats);
 	}
 	
 	@RequestMapping(value="/getId/{idC}",method=RequestMethod.POST)

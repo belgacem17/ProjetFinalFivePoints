@@ -38,7 +38,11 @@ public class Personnels {
 	 @Column(name = "adresse")
 	private String adresse;
 	
-	 @ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	 @Column(name = "photo")
+		private String photo;
+	 
+	
+	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	 private Conge conge;
 	 
 	public Personnels() {
@@ -104,5 +108,12 @@ public class Personnels {
 	public void setConge(Conge conge) {
 		this.conge = conge;
 	}
+	
+	 public String getPhoto() {
+			return photo;
+		}
+		public void setPhoto(String photo) {
+			this.photo = photo;
+		}
 
 }
