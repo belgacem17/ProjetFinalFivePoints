@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="finance")
 public class Finance implements Serializable{
@@ -20,10 +22,12 @@ public class Finance implements Serializable{
 	@OneToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private Agences agences;
 	
-	@OneToMany(mappedBy="finance",fetch=FetchType.LAZY)
+	@JsonIgnore
+	@OneToMany(mappedBy="finance")
 	private List<Achat> listAchat = new ArrayList<Achat>() ;
 	
-	@OneToMany(mappedBy="finance",fetch=FetchType.LAZY)
+	@JsonIgnore
+	@OneToMany(mappedBy="finance")
 	private List<Paiments> listPaiments = new ArrayList<Paiments>() ;
 	
 	public int getId() {

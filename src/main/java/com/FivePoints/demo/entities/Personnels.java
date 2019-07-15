@@ -1,8 +1,11 @@
 package com.FivePoints.demo.entities;
 
+import java.io.File;
 import java.util.Date;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "personnels")
@@ -38,11 +41,12 @@ public class Personnels {
 	 @Column(name = "adresse")
 	private String adresse;
 	
+	 @Lob
 	 @Column(name = "photo")
-		private String photo;
+		private File photo;
 	 
-	
-	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@JsonIgnore
+	@ManyToOne(cascade=CascadeType.ALL)
 	 private Conge conge;
 	 
 	public Personnels() {
@@ -109,10 +113,10 @@ public class Personnels {
 		this.conge = conge;
 	}
 	
-	 public String getPhoto() {
+	 public File getPhoto() {
 			return photo;
 		}
-		public void setPhoto(String photo) {
+		public void setPhoto(File photo) {
 			this.photo = photo;
 		}
 

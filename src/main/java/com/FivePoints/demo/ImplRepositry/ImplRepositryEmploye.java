@@ -1,9 +1,12 @@
 package com.FivePoints.demo.ImplRepositry;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.FivePoints.demo.entities.Employe;
 import com.FivePoints.demo.repositories.RepositryEmploye;
@@ -17,7 +20,7 @@ public class ImplRepositryEmploye implements ServicesEmploye {
 	
 	@Override
 	public List<Employe> findAll() {
-		// TODO Auto-generated method stub
+	
 		return repositryEmploye.findAll();
 	}
 
@@ -58,5 +61,12 @@ public class ImplRepositryEmploye implements ServicesEmploye {
 	public void Update(Employe entity) {
 		repositryEmploye.save(entity);
 	}
+
+    public void storeFile(MultipartFile file) {
+        // Normalize file name
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+ 
+    }
+
 
 }

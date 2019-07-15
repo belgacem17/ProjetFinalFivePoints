@@ -68,7 +68,7 @@ public class ControlerFinance {
  		implRepositryFinance.deleteAll();
  	}
 	
-	@RequestMapping(value="/update",method=RequestMethod.POST)
+	@RequestMapping(value="/update",method=RequestMethod.PUT)
  	public void Update(@RequestBody Finance entity)
  	{
  		implRepositryFinance.save(entity);
@@ -81,6 +81,7 @@ public class ControlerFinance {
 		agences= implRepositryAgences.findByLieu(lieu);
 		//Finance finance = new Finance();
 		System.out.println(agences.getId());
+	
 		return null; 
 	}
 	

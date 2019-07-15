@@ -61,7 +61,7 @@ public class ControlerNiveau {
  		implRepositryNiveau.deleteAll();
  	}
 	
-	@RequestMapping(value="/update",method=RequestMethod.POST)
+	@RequestMapping(value="/update",method=RequestMethod.PUT)
  	public void Update(@RequestBody Niveau entity)
  	{
  		implRepositryNiveau.save(entity);

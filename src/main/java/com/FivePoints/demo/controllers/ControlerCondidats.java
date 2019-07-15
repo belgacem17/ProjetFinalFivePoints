@@ -37,7 +37,7 @@ public class ControlerCondidats {
 	{
 		Formation formation = new Formation();
 		formation= implRepositryFormation.getOne(id);
-
+		condidats.setFormation(formation);
 		implRepositryCondidats.save(condidats);
 	}
 	
@@ -68,7 +68,7 @@ public class ControlerCondidats {
  		implRepositryCondidats.deleteAll();
  	}
 	
-	@RequestMapping(value="/update",method=RequestMethod.POST)
+	@RequestMapping(value="/update",method=RequestMethod.PUT)
  	public void Update(@RequestBody Condidats entity)
  	{
  		implRepositryCondidats.save(entity);

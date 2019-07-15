@@ -69,7 +69,7 @@ public class ControlerAgences {
  		implRepositryAgences.deleteAll();
  	}
 	
-	@RequestMapping(value="/update",method=RequestMethod.POST)
+	@RequestMapping(value="/update",method=RequestMethod.PUT)
  	public void Update(@RequestBody Agences entity)
  	{
  		implRepositryAgences.save(entity);

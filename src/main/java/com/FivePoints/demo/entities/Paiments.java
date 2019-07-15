@@ -26,6 +26,9 @@ public class Paiments implements Serializable{
 	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private Finance finance;
 	
+	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	private Condidats condidat;
+	
 	public int getId() {
 		return id;
 	}
@@ -64,6 +67,14 @@ public class Paiments implements Serializable{
 
 	public void setFinance(Finance finance) {
 		this.finance = finance;
+	}
+
+	public Condidats getCondidat() {
+		return condidat;
+	}
+
+	public void setCondidat(Condidats condidat) {
+		this.condidat = condidat;
 	}
 
 }

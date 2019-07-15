@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.FivePoints.demo.ImplRepositry.ImplRepositryCondidats;
 import com.FivePoints.demo.ImplRepositry.ImplRepositryPaiments;
 import com.FivePoints.demo.entities.Paiments;
 
@@ -18,7 +19,10 @@ import com.FivePoints.demo.entities.Paiments;
 public class ControlerPaiments {
 	
 	@Autowired
-	private ImplRepositryPaiments implRepositryPaiments;
+	 ImplRepositryPaiments implRepositryPaiments;
+	
+	@Autowired
+	 ImplRepositryCondidats implRepositryCondidats;
 	
 
 	@RequestMapping(value="/getAll",method=RequestMethod.GET)
@@ -29,19 +33,20 @@ public class ControlerPaiments {
 	}
 	
 	@RequestMapping(value="/add",method=RequestMethod.POST)
-	public void saveUser(@RequestBody Paiments user)
+	public void savePaiment(@RequestBody Paiments paiment)
 	{
-		implRepositryPaiments.save(user);
+		
+		implRepositryPaiments.save(paiment);
 	}
 	
-	@RequestMapping(value="/getId/{idN}",method=RequestMethod.POST)
-	public Paiments getOne(@PathVariable("idN") int id) {
+	@RequestMapping(value="/getId/{idP}",method=RequestMethod.POST)
+	public Paiments getOne(@PathVariable("idP") int id) {
 		
 		return implRepositryPaiments.getOne(id);
 	}
 	
-	@RequestMapping(value="/existsId/{idN}",method=RequestMethod.POST)
-	public boolean existsById(@PathVariable("idN") int id) {
+	@RequestMapping(value="/existsId/{idP}",method=RequestMethod.POST)
+	public boolean existsById(@PathVariable("idP") int id) {
 		return implRepositryPaiments.existsById(id);
 	}
  
@@ -61,7 +66,7 @@ public class ControlerPaiments {
  		implRepositryPaiments.deleteAll();
  	}
 	
-	@RequestMapping(value="/update",method=RequestMethod.POST)
+	@RequestMapping(value="/update",method=RequestMethod.PUT)
  	public void Update(@RequestBody Paiments entity)
  	{
  		implRepositryPaiments.save(entity);

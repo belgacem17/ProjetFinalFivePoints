@@ -44,6 +44,8 @@ public class ControlerAchat {
 		agences= implRepositryAgences.findByLieu(lieu);
 		Finance finance = new Finance();
 		finance= implRepositryFinance.findByAgences(agences.getId());
+		achat.setFinance(finance);
+		implRepositryAchat.save(achat);
 	}
 	
 	@RequestMapping(value="/getId/{idA}",method=RequestMethod.GET)
@@ -74,7 +76,7 @@ public class ControlerAchat {
  		implRepositryAchat.deleteAll();
  	}
 	
-	@RequestMapping(value="/update",method=RequestMethod.POST)
+	@RequestMapping(value="/update",method=RequestMethod.PUT)
  	public void Update(@RequestBody Achat entity)
  	{
  		implRepositryAchat.save(entity);

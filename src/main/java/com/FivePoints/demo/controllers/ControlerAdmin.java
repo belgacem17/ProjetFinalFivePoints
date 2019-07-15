@@ -68,7 +68,7 @@ public class ControlerAdmin {
  		implRepositryAdmin.deleteAll();
  	}
 	
-	@RequestMapping(value="/update",method=RequestMethod.POST)
+	@RequestMapping(value="/update",method=RequestMethod.PUT)
  	public void Update(@RequestBody Admin entity)
  	{
  		implRepositryAdmin.save(entity);

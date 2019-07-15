@@ -7,11 +7,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.FivePoints.demo.ImplRepositry.ImplRepositryEmploye;
 import com.FivePoints.demo.entities.Employe;
-
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/employe")
@@ -29,9 +31,10 @@ public class ControlerEmploye {
 	}
 	
 	@RequestMapping(value="/add",method=RequestMethod.POST)
-	public void saveUser(@RequestBody Employe user)
+	public void saveEmploye(@RequestBody Employe employe)
 	{
-		implRepositryEmploye.save(user);
+		
+		implRepositryEmploye.save(employe);
 	}
 	
 	@RequestMapping(value="/getId/{idA}",method=RequestMethod.POST)
@@ -61,9 +64,11 @@ public class ControlerEmploye {
  		implRepositryEmploye.deleteAll();
  	}
 	
-	@RequestMapping(value="/update",method=RequestMethod.POST)
+	@RequestMapping(value="/update",method=RequestMethod.PUT)
  	public void Update(@RequestBody Employe entity)
  	{
  		implRepositryEmploye.save(entity);
  	}
+	
+	
 }

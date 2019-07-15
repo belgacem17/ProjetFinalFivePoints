@@ -60,7 +60,7 @@ public class ControlerConge {
  		implRepositryConge.deleteAll();
  	}
 	
-	@RequestMapping(value="/update",method=RequestMethod.POST)
+	@RequestMapping(value="/update",method=RequestMethod.PUT)
  	public void Update(@RequestBody Conge entity)
  	{
  		implRepositryConge.save(entity);
