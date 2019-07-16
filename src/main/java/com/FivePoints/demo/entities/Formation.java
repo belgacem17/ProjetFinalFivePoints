@@ -30,7 +30,7 @@ public class Formation implements Serializable {
 	private List<Niveau> listNiveau = new ArrayList<Niveau>() ;
 	
 	 @JsonIgnore
-	@OneToMany(mappedBy="formation")
+	@OneToMany(mappedBy="formation",orphanRemoval = true)
 	private List<Condidats> listCondidats = new ArrayList<Condidats>() ;
 	
 	public int getId() {

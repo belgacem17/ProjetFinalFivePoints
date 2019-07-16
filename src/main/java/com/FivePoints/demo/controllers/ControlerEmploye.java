@@ -36,14 +36,17 @@ public class ControlerEmploye {
 	}
 	
 	@RequestMapping(value="/add",method=RequestMethod.PUT)
-	public Employe saveEmploye(@RequestBody Employe employe) throws IOException
+	public void saveEmploye(@RequestBody Employe employe) throws IOException
 	{
-		//employe=implRepositryEmploye.getOne(employe.getId());
-   	  System.out.println(employe.getAdresse());
+		List<Employe> l= FindAll();
+		emp=l.get(l.size()-1);
+		// employe=implRepositryEmploye.getOne(emp.getId());
+   	 
 		employe.setPhoto(emp.getPhoto());
-//		employe = uploadMultipartFile(file);
-		implRepositryEmploye.save(employe);
-		return employe;
+//		employe = uploadMultipartFile(file); 
+		System.out.println(employe.getId());
+		 implRepositryEmploye.save(employe);
+		 
 	}
 	
 	@RequestMapping(value="/getId/{idA}",method=RequestMethod.POST)
@@ -76,7 +79,12 @@ public class ControlerEmploye {
 	@RequestMapping(value="/update",method=RequestMethod.PUT)
  	public void Update(@RequestBody Employe entity)
  	{
- 		implRepositryEmploye.save(entity);
+		if( implRepositryEmploye.existsById(entity.getId())==true)
+		{
+	 		implRepositryEmploye.save(entity);
+
+		}
+		
  	}
 	
 	@RequestMapping(value="/file", method=RequestMethod.POST)

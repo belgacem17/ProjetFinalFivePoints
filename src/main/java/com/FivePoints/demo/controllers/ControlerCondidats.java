@@ -71,7 +71,10 @@ public class ControlerCondidats {
 	@RequestMapping(value="/update",method=RequestMethod.PUT)
  	public void Update(@RequestBody Condidats entity)
  	{
- 		implRepositryCondidats.save(entity);
+		if(implRepositryCondidats.existsById(entity.getId())==true) {
+			implRepositryCondidats.save(entity);
+		}
+ 		
  	}
 	
 	@RequestMapping(value="/NotPay",method=RequestMethod.POST)
