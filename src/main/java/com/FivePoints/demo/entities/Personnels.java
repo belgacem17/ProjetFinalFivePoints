@@ -43,7 +43,7 @@ public class Personnels {
 	
 	 @Lob
 	 @Column(name = "photo")
-		private File photo;
+		private byte[] photo;
 	 
 	@JsonIgnore
 	@ManyToOne(cascade=CascadeType.ALL)
@@ -109,15 +109,16 @@ public class Personnels {
 	public Conge getConge() {
 		return conge;
 	}
+	public byte[] getPhoto() {
+		return photo;
+	}
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
+	}
 	public void setConge(Conge conge) {
 		this.conge = conge;
 	}
 	
-	 public File getPhoto() {
-			return photo;
-		}
-		public void setPhoto(File photo) {
-			this.photo = photo;
-		}
+	
 
 }

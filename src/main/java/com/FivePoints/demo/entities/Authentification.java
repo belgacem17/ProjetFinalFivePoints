@@ -10,6 +10,9 @@ public class Authentification implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int  id;
+	
+	@OneToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private Admin admin;
 	
 	@Column(name = "login")
@@ -18,13 +21,16 @@ public class Authentification implements Serializable {
 	@Column(name = "mdp")
 	private String mdp;
 
-	public Admin getAdmin() {
-		return admin;
+	public int getId() {
+		return id;
 	}
 
-	public void setAdmin(Admin admin) {
-		this.admin = admin;
+	public void setId(int id) {
+		this.id = id;
 	}
+
+	
+
 
 	public String getLogin() {
 		return login;

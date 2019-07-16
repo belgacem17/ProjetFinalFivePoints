@@ -29,7 +29,8 @@ public class Formation implements Serializable {
 	@OneToMany(mappedBy="formation",fetch=FetchType.LAZY)
 	private List<Niveau> listNiveau = new ArrayList<Niveau>() ;
 	
-	@OneToMany(mappedBy="formation",fetch=FetchType.LAZY)
+	 @JsonIgnore
+	@OneToMany(mappedBy="formation")
 	private List<Condidats> listCondidats = new ArrayList<Condidats>() ;
 	
 	public int getId() {

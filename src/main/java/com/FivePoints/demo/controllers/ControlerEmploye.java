@@ -1,19 +1,23 @@
 package com.FivePoints.demo.controllers;
 
+
+import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.FivePoints.demo.ImplRepositry.ImplRepositryEmploye;
-import com.FivePoints.demo.entities.Employe;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import com.FivePoints.demo.entities.Employe; 
 
 @RestController
 @RequestMapping("/employe")
@@ -22,6 +26,7 @@ public class ControlerEmploye {
 	@Autowired
 	private ImplRepositryEmploye implRepositryEmploye;
 	
+	private Employe emp;
 
 	@RequestMapping(value="/getAll",method=RequestMethod.GET)
 	public List<Employe> FindAll()
@@ -30,11 +35,15 @@ public class ControlerEmploye {
 		return  implRepositryEmploye.findAll();
 	}
 	
-	@RequestMapping(value="/add",method=RequestMethod.POST)
-	public void saveEmploye(@RequestBody Employe employe)
+	@RequestMapping(value="/add",method=RequestMethod.PUT)
+	public Employe saveEmploye(@RequestBody Employe employe) throws IOException
 	{
-		
+		//employe=implRepositryEmploye.getOne(employe.getId());
+   	  System.out.println(employe.getAdresse());
+		employe.setPhoto(emp.getPhoto());
+//		employe = uploadMultipartFile(file);
 		implRepositryEmploye.save(employe);
+		return employe;
 	}
 	
 	@RequestMapping(value="/getId/{idA}",method=RequestMethod.POST)
@@ -70,5 +79,51 @@ public class ControlerEmploye {
  		implRepositryEmploye.save(entity);
  	}
 	
+	@RequestMapping(value="/file", method=RequestMethod.POST)
+    public   void uploadMultipartFile(@RequestParam("photo") MultipartFile file) {
+      try {
+    	   
+    	  Employe entity = new Employe();   
+    	  byte[] bytes = ((MultipartFile) file).getBytes();
+    	  entity.setPhoto( bytes);
+    	  emp=entity;
+    	  implRepositryEmploye.save(entity);
+    	  
+       
+    } catch (  Exception e) {
+     
+    }    
+    }
 	
+	@RequestMapping(value="/addem",
+    method=RequestMethod.POST
+    		, headers = {"content-type=application/x-www-form-urlencoded"}
+    )
+    public Employe register(@RequestBody MultiValueMap<String, String> formData) {
+      try {
+    	  Employe entity = new Employe();
+    	  
+//    	  byte[] bytes = ((MultipartFile) file).getBytes();
+    	  // entity.setPhoto((byte[]) formData.getFirst("photo"));
+    	  entity.setFirstName(String.valueOf(formData.getFirst("firstName")));
+    	  System.out.println(formData.getFirst("firstName"));
+    	  
+    	  
+    	  
+    	  Set<String> keys = formData.keySet();
+
+    	   for (String key : keys) {
+    	      System.out.println("Key = " + key);
+    	      System.out.println("Values = " + formData.get(key));
+    	      String a = String.valueOf(formData.get(key));
+
+    	      System.out.println("A : " + a);
+    	    }
+    // implRepositryEmploye.save(entity);
+    	  
+        return entity;
+    } catch (  Exception e) {
+      return null;
+    }    
+    }
 }
