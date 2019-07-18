@@ -4,16 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -47,13 +38,13 @@ public class Condidats implements Serializable{
 	private String cv;
 
 
-	
-	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@JsonIgnore
+	 @ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private Formation formation;
 	
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="condidat")
+	@OneToMany(mappedBy="condidat")	
 	private List<Paiments> paiments = new ArrayList<Paiments>();
 	
 	public Condidats() {

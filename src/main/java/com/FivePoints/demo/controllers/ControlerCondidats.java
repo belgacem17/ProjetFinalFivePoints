@@ -55,7 +55,10 @@ public class ControlerCondidats {
 	@RequestMapping(value="/delOneById/{idC}",method=RequestMethod.DELETE)
 	public void deleteById(@PathVariable("idC") int id)
 	{
-		implRepositryCondidats.deleteById(id);
+		Condidats condidat= implRepositryCondidats.getOne(id);
+		condidat.setFormation(null);
+		implRepositryCondidats.save(condidat);
+		implRepositryCondidats.deleteById(condidat.getId());
 	}
  
 	@RequestMapping(value="/delOne",method=RequestMethod.DELETE)
@@ -72,6 +75,9 @@ public class ControlerCondidats {
  	public void Update(@RequestBody Condidats entity)
  	{
 		if(implRepositryCondidats.existsById(entity.getId())==true) {
+			Condidats cond = new Condidats();
+			cond = implRepositryCondidats.getOne(entity.getId());
+			entity.setFormation(cond.getFormation());
 			implRepositryCondidats.save(entity);
 		}
  		

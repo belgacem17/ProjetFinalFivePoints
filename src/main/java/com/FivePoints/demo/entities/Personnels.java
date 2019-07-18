@@ -45,8 +45,13 @@ public class Personnels {
 	 @Column(name = "photo")
 		private byte[] photo;
 	 
+	 @Column(name = "typeFile")
+		private String typeFile;
+	 
+	 @Column(name = "nameFile")
+		private String nameFile;
 	@JsonIgnore
-	@ManyToOne(cascade=CascadeType.ALL)
+	 @OneToOne(mappedBy="personne")
 	 private Conge conge;
 	 
 	public Personnels() {
@@ -103,18 +108,31 @@ public class Personnels {
 	public String getAdresse() {
 		return adresse;
 	}
-	public void setAdresse(String adresse) {
-		this.adresse = adresse;
-	}
-	public Conge getConge() {
-		return conge;
-	}
 	public byte[] getPhoto() {
 		return photo;
 	}
 	public void setPhoto(byte[] photo) {
 		this.photo = photo;
 	}
+	public String getTypeFile() {
+		return typeFile;
+	}
+	public void setTypeFile(String typeFile) {
+		this.typeFile = typeFile;
+	}
+	public String getNameFile() {
+		return nameFile;
+	}
+	public void setNameFile(String nameFile) {
+		this.nameFile = nameFile;
+	}
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
+	public Conge getConge() {
+		return conge;
+	}
+	
 	public void setConge(Conge conge) {
 		this.conge = conge;
 	}

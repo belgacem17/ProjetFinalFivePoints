@@ -13,6 +13,7 @@ import com.FivePoints.demo.ImplRepositry.ImplRepositryAdmin;
 import com.FivePoints.demo.ImplRepositry.ImplRepositryAgences;
 import com.FivePoints.demo.entities.Admin;
 import com.FivePoints.demo.entities.Agences;
+import com.FivePoints.demo.entities.Personnels;
 
 
 @RestController

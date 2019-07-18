@@ -29,9 +29,10 @@ public class ControlerNiveau {
 	}
 	
 	@RequestMapping(value="/add",method=RequestMethod.POST)
-	public void saveUser(@RequestBody Niveau user)
+	public void saveNiveau(@RequestBody Niveau niveau)
 	{
-		implRepositryNiveau.save(user);
+		
+		implRepositryNiveau.save(niveau);
 	}
 	
 	@RequestMapping(value="/getId/{idN}",method=RequestMethod.POST)
@@ -48,7 +49,11 @@ public class ControlerNiveau {
 	@RequestMapping(value="/delOneById/{idN}",method=RequestMethod.DELETE)
 	public void deleteById(@PathVariable("idN") int id)
 	{
-		implRepositryNiveau.deleteById(id);
+		Niveau niveau = implRepositryNiveau.getOne(id);
+		niveau.setFormation(null);
+		implRepositryNiveau.save(niveau);
+		
+		implRepositryNiveau.deleteById(niveau.getId());
 	}
  
 	@RequestMapping(value="/delOne",method=RequestMethod.DELETE)
@@ -64,6 +69,8 @@ public class ControlerNiveau {
 	@RequestMapping(value="/update",method=RequestMethod.PUT)
  	public void Update(@RequestBody Niveau entity)
  	{
+		Niveau n = implRepositryNiveau.getOne(entity.getId());
+		entity.setFormation(n.getFormation());
  		implRepositryNiveau.save(entity);
  	}
 }

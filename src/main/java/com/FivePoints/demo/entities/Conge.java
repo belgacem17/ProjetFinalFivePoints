@@ -24,8 +24,12 @@ public class Conge implements Serializable{
 	 @Temporal(TemporalType.DATE)
 	private Date dateFin;
 	
-	@OneToMany(mappedBy="conge",fetch=FetchType.LAZY)
-	private List<Personnels> listPersonnel = new ArrayList<Personnels>() ;
+	 
+	 @OneToOne(cascade = CascadeType.ALL)
+	    private Personnels personne;
+	 
+//	@OneToMany(mappedBy="conge",fetch=FetchType.LAZY)
+//	private List<Personnels> listPersonnel = new ArrayList<Personnels>() ;
 	
 	public int getId() {
 		return id;
@@ -45,11 +49,17 @@ public class Conge implements Serializable{
 	public void setDateFin(Date dateFin) {
 		this.dateFin = dateFin;
 	}
-	public List<Personnels> getListPersonnel() {
-		return listPersonnel;
+//	public List<Personnels> getListPersonnel() {
+//		return listPersonnel;
+//	}
+//	public void setListPersonnel(List<Personnels> listPersonnel) {
+//		this.listPersonnel = listPersonnel;
+//	}
+	public Personnels getPersonne() {
+		return personne;
 	}
-	public void setListPersonnel(List<Personnels> listPersonnel) {
-		this.listPersonnel = listPersonnel;
+	public void setPersonne(Personnels personne) {
+		this.personne = personne;
 	}
 	
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.FivePoints.demo.ImplRepositry.ImplRepositryConge;
+import com.FivePoints.demo.entities.Condidats;
 import com.FivePoints.demo.entities.Conge;
 
 
@@ -28,9 +29,9 @@ public class ControlerConge {
 	}
 	
 	@RequestMapping(value="/add",method=RequestMethod.POST)
-	public void saveUser(@RequestBody Conge user)
+	public void saveConge(@RequestBody Conge conge)
 	{
-		implRepositryConge.save(user);
+		implRepositryConge.save(conge);
 	}
 	
 	@RequestMapping(value="/getId/{idA}",method=RequestMethod.POST)
@@ -47,12 +48,16 @@ public class ControlerConge {
 	@RequestMapping(value="/delOneById/{idA}",method=RequestMethod.DELETE)
 	public void deleteById(@PathVariable("idA") int id)
 	{
-		implRepositryConge.deleteById(id);
+		 Conge conge = implRepositryConge.getOne(id);
+		 conge.setPersonne(null);
+		 implRepositryConge.save(conge);
+		implRepositryConge.deleteById(conge.getId());
 	}
  
 	@RequestMapping(value="/delOne",method=RequestMethod.DELETE)
  	public void delete(@RequestBody Conge entity) {
- 		implRepositryConge.delete(entity);
+ 	
+		implRepositryConge.delete(entity);
  	}
 	
 	@RequestMapping(value="/delAll",method=RequestMethod.DELETE)
@@ -63,6 +68,8 @@ public class ControlerConge {
 	@RequestMapping(value="/update",method=RequestMethod.PUT)
  	public void Update(@RequestBody Conge entity)
  	{
+		Conge conge = implRepositryConge.getOne(entity.getId());
+		entity.setPersonne(conge.getPersonne());
  		implRepositryConge.save(entity);
  	}
 }

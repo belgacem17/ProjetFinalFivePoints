@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -22,15 +25,14 @@ public class Formation implements Serializable {
 	 @Column(name = "fileFormation")
 	private String fileFormation;
 	
-	 @JsonIgnore
+	@JsonIgnore
 	@ManyToOne(cascade=CascadeType.ALL)
 	private Agences agence;
 	
-	@OneToMany(mappedBy="formation",fetch=FetchType.LAZY)
-	private List<Niveau> listNiveau = new ArrayList<Niveau>() ;
+  @OneToMany(mappedBy="formation")
+private List<Niveau> listNiveau = new ArrayList<Niveau>() ;
 	
-	 @JsonIgnore
-	@OneToMany(mappedBy="formation",orphanRemoval = true)
+	@OneToMany(mappedBy="formation", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<Condidats> listCondidats = new ArrayList<Condidats>() ;
 	
 	public int getId() {

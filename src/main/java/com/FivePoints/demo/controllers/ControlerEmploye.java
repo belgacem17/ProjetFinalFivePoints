@@ -2,11 +2,17 @@ package com.FivePoints.demo.controllers;
 
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.*;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +49,8 @@ public class ControlerEmploye {
 		// employe=implRepositryEmploye.getOne(emp.getId());
    	 
 		employe.setPhoto(emp.getPhoto());
+		employe.setTypeFile(emp.getTypeFile());
+		employe.setNameFile(emp.getNameFile());
 //		employe = uploadMultipartFile(file); 
 		System.out.println(employe.getId());
 		 implRepositryEmploye.save(employe);
@@ -63,7 +71,10 @@ public class ControlerEmploye {
 	@RequestMapping(value="/delOneById/{idA}",method=RequestMethod.DELETE)
 	public void deleteById(@PathVariable("idA") int id)
 	{
-		implRepositryEmploye.deleteById(id);
+		Employe emp = implRepositryEmploye.getOne(id);
+		emp.setAgence(null);
+		implRepositryEmploye.save(emp);
+		implRepositryEmploye.deleteById(emp.getId());
 	}
  
 	@RequestMapping(value="/delOne",method=RequestMethod.DELETE)
@@ -79,12 +90,12 @@ public class ControlerEmploye {
 	@RequestMapping(value="/update",method=RequestMethod.PUT)
  	public void Update(@RequestBody Employe entity)
  	{
-		if( implRepositryEmploye.existsById(entity.getId())==true)
-		{
+		
+		Employe empl= implRepositryEmploye.getOne(entity.getId());
+		entity.setAgence(empl.getAgence());
 	 		implRepositryEmploye.save(entity);
 
-		}
-		
+	 
  	}
 	
 	@RequestMapping(value="/file", method=RequestMethod.POST)
@@ -92,9 +103,11 @@ public class ControlerEmploye {
       try {
     	   
     	  Employe entity = new Employe();   
-    	  byte[] bytes = ((MultipartFile) file).getBytes();
+    	  byte[] bytes	 = ((MultipartFile) file).getBytes();
+    	  entity.setTypeFile(file.getContentType());
     	  entity.setPhoto( bytes);
-    	  emp=entity;
+    	  entity.setNameFile(file.getOriginalFilename());
+    	 System.out.println(entity.getTypeFile());
     	  implRepositryEmploye.save(entity);
     	  
        
@@ -103,8 +116,35 @@ public class ControlerEmploye {
     }    
     }
 	
-	@RequestMapping(value="/addem",
-    method=RequestMethod.POST
+//	@GetMapping("/downloadFile/{idE}")
+//    public ResponseEntity<Resource> downloadFile(@PathVariable("idE") int idE) {
+//        // Load file from database
+//		
+//        Employe employe= implRepositryEmploye.getOne(idE);
+//        System.out.println(employe.getFirstName());
+//        
+//        return ResponseEntity.ok().body(new ByteArrayResource(employe.getPhoto()));
+//    }
+	
+	@GetMapping("/downloadFile/{idE}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable("idE") int idE) {
+        // Load file from database
+		
+        Employe employe= implRepositryEmploye.getOne(idE);
+        System.out.println(employe.getFirstName());
+//        return ResponseEntity.ok()
+//        		.contentType(MediaType.parseMediaType(employe.getTypeFile()))
+//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + employe.getFirstName() + "\"")
+//        		.body(new ByteArrayResource(employe.getPhoto()));
+        
+        return ResponseEntity.ok()
+        		.contentType(MediaType.parseMediaType(employe.getTypeFile()))
+        		.header(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + employe.getNameFile() + "\"")
+        		.body(new ByteArrayResource(employe.getPhoto()));
+    }
+	
+	@RequestMapping(value="/addem", method=RequestMethod.POST
     		, headers = {"content-type=application/x-www-form-urlencoded"}
     )
     public Employe register(@RequestBody MultiValueMap<String, String> formData) {
