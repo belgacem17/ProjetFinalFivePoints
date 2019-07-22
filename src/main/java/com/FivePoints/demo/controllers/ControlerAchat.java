@@ -33,7 +33,7 @@ public class ControlerAchat {
 	@RequestMapping(value="/getAll",method=RequestMethod.GET)
 	public List<Achat> FindAll()
 	{
-		//System.out.println("aymen");
+		
 		return  implRepositryAchat.findAll();
 	}
 	
@@ -63,7 +63,9 @@ public class ControlerAchat {
 	@RequestMapping(value="/delOneById/{idA}",method=RequestMethod.DELETE)
 	public void deleteById(@PathVariable("idA") int id)
 	{
-		implRepositryAchat.deleteById(id);
+		Achat acht = implRepositryAchat.getOne(id);
+		acht.setFinance(null);
+		implRepositryAchat.deleteById(acht.getId());
 	}
  
 	@RequestMapping(value="/delOne",method=RequestMethod.DELETE)
@@ -79,6 +81,8 @@ public class ControlerAchat {
 	@RequestMapping(value="/update",method=RequestMethod.PUT)
  	public void Update(@RequestBody Achat entity)
  	{
+		Achat acht = implRepositryAchat.getOne(entity.getId());
+		entity.setFinance(acht.getFinance());
  		implRepositryAchat.save(entity);
  	}
 	
